@@ -10,6 +10,9 @@ class _RegisterState extends State<Register> {
   // Explicit
   //ประกาศตัวเเปร
   final formInput = GlobalKey<FormState>();
+  var nameString = '';
+  var emailString = '';
+  var passwordString = '';
 
   Widget name() {
     return TextFormField(
@@ -31,6 +34,8 @@ class _RegisterState extends State<Register> {
         if (value.length == 0) {
           return 'กรอกข้อมูลด้วย ไอสัส!';
         } else {}
+      },onSaved: (String value) {
+        nameString = value;
       },
     );
   }
@@ -58,6 +63,8 @@ class _RegisterState extends State<Register> {
         } else if (!((value.contains('@')) && (value.contains('.')))) {
           return 'กรอกให้ภูกต้องตาม format สิไอสัส';
         }
+      },onSaved: (String value) {
+        emailString =value ;
       },
     );
   }
@@ -84,6 +91,8 @@ class _RegisterState extends State<Register> {
         if (value.length <= 5) {
           return 'กรอก6ตัวอักษรขึ้นไปสิ ไอโง่!';
         }
+      },onSaved: (String value) {
+        passwordString =value ;
       },
     );
   }
@@ -92,7 +101,10 @@ class _RegisterState extends State<Register> {
     return IconButton(
       onPressed: () {
         print('55555555555');
-        if (formInput.currentState.validate()) {}
+        if (formInput.currentState.validate()) {
+          formInput.currentState.save();
+          print('name = $nameString, email = $emailString, password = $passwordString');
+        }
       },
       icon: Icon(Icons.cloud_upload),
       tooltip: 'Upload To Firebase',
