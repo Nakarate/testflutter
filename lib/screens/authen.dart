@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:helloflutter/screens/register.dart';
 
 class Authen extends StatefulWidget {
   @override
@@ -7,35 +8,59 @@ class Authen extends StatefulWidget {
 
 class _AuthenState extends State<Authen> {
   Widget appLogo() {
-    return Image.asset('images/logo.gif');
+    return Image.asset('images/logo.png',
+    color: Colors.red[900],);
   }
 
   Widget appName() {
     return Text(
-      'HELLO O-CHA',
+      'CORE SOLUTIONS',
       style: TextStyle(
-          fontFamily: 'SpecialElite',
-          fontSize: 25.0,
-          fontWeight: FontWeight.bold,
-          color: Colors.black87),
+          fontFamily: 'Coldnight',
+          fontSize: 40.0,
+          fontWeight: FontWeight.w500,
+          color: Colors.red[900]),
     );
   }
 
   Widget emailInput() {
     return TextFormField(
       decoration: InputDecoration(
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            width: 1.0,
+            color: Colors.red[900],
+          ),
+          borderRadius: BorderRadius.circular(15.0),
+        ),
         labelText: 'Email :',
         hintText: 'you@email.com',
+        icon: Icon(
+          Icons.email,
+          color: Colors.red[900],
+        ),
       ),
     );
   }
+
 
   Widget passwordInput() {
     return TextFormField(
       obscureText: true,
       decoration: InputDecoration(
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            width: 1.0,
+            color: Colors.red[900],
+          ),
+          borderRadius: BorderRadius.circular(15.0),
+        ),
         labelText: 'Password :',
-        hintText: 'A-Z a-z',
+        hintText: 'More 6 Character',
+        icon: Icon(
+          Icons.vpn_key,
+          color: Colors.red[900],
+        ),
       ),
     );
   }
@@ -46,17 +71,36 @@ class _AuthenState extends State<Authen> {
       textColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       color: Colors.red,
-      child: Text('Sign in'),
-    );
+      child: Text(
+        'Sign in',
+        style: TextStyle(
+            fontFamily: 'Coldnight',
+            fontSize: 30.0,
+            fontWeight: FontWeight.w400,
+            color: Colors.white),
+      ),
+      
+      
+      );
   }
 
-  Widget signUpButton() {
+  Widget signUpButton(BuildContext context) {
     return RaisedButton(
-      onPressed: () {},
+      child: Text('Sign up',
+      style: TextStyle(
+          fontFamily: 'Coldnight',
+          fontSize: 30.0,
+          fontWeight: FontWeight.w400,
+          color: Colors.white),),
+      onPressed: () {
+        print('rrrrrrrrrrrrrrrrrrrrr');
+        var registerRoute =
+            MaterialPageRoute(builder: (BuildContext context) => Register());
+        Navigator.of(context).push(registerRoute);
+      },
       textColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       color: Colors.red,
-      child: Text('Sign up'),
     );
   }
 
@@ -67,23 +111,22 @@ class _AuthenState extends State<Authen> {
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
-                colors: [Colors.redAccent, Colors.blueAccent],
-                begin: Alignment(-1, -1))),
+                colors: [Colors.red[900],Colors.black87, Colors.black],
+                begin: Alignment.topCenter)),
         padding: EdgeInsets.only(top: 50.0),
         alignment: Alignment(0, -1),
         child: Column(
           children: <Widget>[
             Container(
               width: 300.0,
-              height: 300.0,
+              height: 200.0,
               child: appLogo(),
             ),
             Container(
-              margin: EdgeInsets.only(top: 5.0),
               child: appName(),
             ),
             Container(
-              margin: EdgeInsets.only(top: 5.0, right: 50.0, left: 50.0),
+              margin: EdgeInsets.only(top: 25.0, right: 50.0, left: 50.0),
               child: emailInput(),
             ),
             Container(
@@ -103,19 +146,11 @@ class _AuthenState extends State<Authen> {
                     Expanded(
                       child: Container(
                         margin: EdgeInsets.only(right: 5.0),
-                        child: signUpButton(),
+                        child: signUpButton(context),
                       ),
                     ),
-                    // Container(
-                    //   margin: EdgeInsets.only(right: 5.0, left: 50.0),
-                    //   child: signInButton(),
-                    // ), Container(
-                    //   margin: EdgeInsets.only(right: 50.0, left: 5.0),
-                    //   child: signUpButton(),
-                    // ),
                   ],
                 )),
-            // line3(),
           ],
         ),
       ),

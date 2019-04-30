@@ -7,30 +7,58 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  // Explicit
+  //ประกาศตัวเเปร
+  final formInput = GlobalKey<FormState>();
+
   Widget name() {
     return TextFormField(
       decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(width: 1.0, color: Colors.white,),
+            borderSide: BorderSide(
+              width: 1.0,
+              color: Colors.white,
+            ),
             borderRadius: BorderRadius.circular(15.0),
           ),
           labelText: 'Name :',
           hintText: ' ',
-          icon: Icon(Icons.face, color: Colors.white,)),
+          icon: Icon(
+            Icons.face,
+            color: Colors.white,
+          )),
+      validator: (String value) {
+        if (value.length == 0) {
+          return 'กรอกข้อมูลด้วย ไอสัส!';
+        } else {}
+      },
     );
   }
 
   Widget emailInput() {
     return TextFormField(
       decoration: InputDecoration(
-         enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(width: 1.0, color: Colors.white,),
-            borderRadius: BorderRadius.circular(15.0),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            width: 1.0,
+            color: Colors.white,
           ),
+          borderRadius: BorderRadius.circular(15.0),
+        ),
         labelText: 'Email :',
         hintText: 'you@email.com',
-        icon: Icon(Icons.email, color: Colors.white,),
+        icon: Icon(
+          Icons.email,
+          color: Colors.white,
+        ),
       ),
+       validator: (String value) {
+        if (value.length == 0) {
+          return 'กรอกข้อมูลด้วย ไอสัส!';
+        } else if (!((value.contains('@')) && (value.contains('.')))) {
+          return 'กรอกให้ภูกต้องตาม format สิไอสัส';
+        }
+      },
     );
   }
 
@@ -38,72 +66,89 @@ class _RegisterState extends State<Register> {
     return TextFormField(
       obscureText: true,
       decoration: InputDecoration(
-                 enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(width: 1.0, color: Colors.white,),
-            borderRadius: BorderRadius.circular(15.0),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            width: 1.0,
+            color: Colors.white,
           ),
+          borderRadius: BorderRadius.circular(15.0),
+        ),
         labelText: 'Password :',
-        hintText: 'A-Z a-z',
-        icon: Icon(Icons.vpn_key, color: Colors.white,),
+        hintText: 'More 6 Character',
+        icon: Icon(
+          Icons.vpn_key,
+          color: Colors.white,
+        ),
       ),
+      validator: (String value) {
+        if (value.length <= 5) {
+          return 'กรอก6ตัวอักษรขึ้นไปสิ ไอโง่!';
+        }
+      },
     );
   }
 
-  Widget signUpButton() {
-    return RaisedButton(
-      onPressed: () {},
-      textColor: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      color: Colors.redAccent,
-      child: Text('Sign up'),
+  Widget upLoadButton() {
+    return IconButton(
+      onPressed: () {
+        print('55555555555');
+        if (formInput.currentState.validate()) {}
+      },
+      icon: Icon(Icons.cloud_upload),
+      tooltip: 'Upload To Firebase',
+      color: Colors.white,
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
-      appBar: AppBar(
-        title: Text('Pracharat Register'),
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [Colors.redAccent, Colors.blueAccent],
-                begin: Alignment(1, 1))),
-        padding: EdgeInsets.only(top: 50.0),
-        alignment: Alignment(0, -1),
-        child: Column(
-          children: <Widget>[
+        resizeToAvoidBottomPadding: false,
+        appBar: AppBar(
+          title: Text(
+            'Register to be Slave',
+            style: TextStyle(
+                fontFamily: 'Coldnight',
+                fontSize: 25.0,
+                color: Colors.white),
+          ),
+          actions: <Widget>[
             Container(
-              margin: EdgeInsets.only(top: 20.0, right: 50.0, left: 50.0),
-              child: name(),
+              child: upLoadButton(),
             ),
-            Container(
-              margin: EdgeInsets.only(top: 20.0, right: 50.0, left: 50.0),
-              child: emailInput(),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 20.0, right: 50.0, left: 50.0),
-              child: passwordInput(),
-            ),
-            Container(
-                margin: EdgeInsets.only(top: 10.0, right: 70.0, left: 70.0),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                        margin:
-                            EdgeInsets.only(top: 15.0, right: 50.0, left: 50.0),
-                        child: signUpButton(),
-                      ),
-                    ),
-                  ],
-                )),
-            // line3(),
           ],
+          backgroundColor: Colors.red[900],
         ),
-      ),
-    );
+        body: Form(
+          key: formInput,
+          child: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+              begin: Alignment.bottomCenter,
+                colors: [Colors.red[900],Colors.black87, Colors.black],
+              // colors: [Colors.white, Colors.indigoAccent[400]],
+            )),
+            padding: EdgeInsets.only(top: 50.0),
+            alignment: Alignment(0, -1),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(top: 20.0, right: 50.0, left: 50.0),
+                  child: name(),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 20.0, right: 50.0, left: 50.0),
+                  child: emailInput(),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 20.0, right: 50.0, left: 50.0),
+                  child: passwordInput(),
+                ),
+
+                // line3(),
+              ],
+            ),
+          ),
+        ));
   }
 }
